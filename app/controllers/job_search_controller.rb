@@ -1,5 +1,5 @@
 class JobSearchController < ApplicationController
-  before_action :logged_in_user
+  before_action :authentic_user
 
   def index
     fetch_job_lists(params[:search_place] || 'Munich')
@@ -20,7 +20,7 @@ class JobSearchController < ApplicationController
     response = Faraday.get(url) do |req|
       req.headers['Content-Type'] = 'application/json'
     end
-    @jobs = JSON.parse(response.body)
+    @jobs = JSON.parse(response.body).first(10)
   rescue
     @jobs = []
   end

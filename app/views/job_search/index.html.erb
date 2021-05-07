@@ -43,18 +43,14 @@
                 </div>
                 <nav class="level is-mobile">
                   <div class="level-left">
-                    <small class="level-item has-text-danger">3 down-votes</small>
+                    <small class="level-item has-text-danger"><%= Vote.total_downvotes(job['id']).count %> down-votes</small>
                     <small class="level-item">|</small>
-                    <small class="level-item has-text-success">2 up-votes</small>
-                    <small class="level-item">by username1, username2, username3 and 10 more users</small>
+                    <small class="level-item has-text-success"><%= Vote.total_upvotes(job['id']).count %> up-votes</small>
+                    <small class="level-item"><%= display_upvoted_users(job['id']) %></small>
                   </div>
                   <div class="level-right">
-                    <a class="level-item button is-small is-success" aria-label="upvote">
-                      Up-vote
-                    </a>
-                    <a class="level-item button is-small is-danger" aria-label="upvote">
-                      down-vote
-                    </a>
+                    <%= link_to 'Up-vote', votes_path(job_id: job['id'], up_vote: true), method: :post, class: 'level-item button is-small is-success', aria_label: 'upvote' %>
+                    <%= link_to 'down-vote', votes_path(job_id: job['id'], down_vote: true), method: :post, class: 'level-item button is-small is-danger', aria_label: 'downvote' %>
                   </div>
                 </nav>
               </div>

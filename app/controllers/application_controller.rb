@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
 
   private
 
-  def logged_in_user
+  def authentic_user
     unless logged_in?
       store_location
       redirect_to login_url
