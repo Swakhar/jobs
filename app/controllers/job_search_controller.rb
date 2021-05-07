@@ -1,4 +1,6 @@
 class JobSearchController < ApplicationController
+  before_action :logged_in_user
+
   def index
     fetch_job_lists(params[:search_place] || 'Munich')
   end

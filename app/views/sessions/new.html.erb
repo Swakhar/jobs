@@ -1,0 +1,26 @@
+<div class="container">
+  <div class="columns">
+    <div class="column has-text-centered">
+      <h1 class="title is-1">
+        Login
+      </h1>
+    </div>
+  </div>
+  <div class="columns">
+    <div class="column is-4 is-offset-4">
+      <%= form_for :session, url: login_path(), method: :post, html: { class: "form" } do |f| %>
+        <div class="field">
+          <label class="label">Username</label>
+          <div class="control">
+            <%= f.text_field :username, class: 'input', placeholder: 'Enter username' %>
+          </div>
+        </div>
+        <div class="field is-grouped">
+          <div class="control">
+            <%= f.submit value: 'Login', class: 'button is-link', 'data-disable-with': 'Login' %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

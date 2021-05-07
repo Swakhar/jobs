@@ -3,4 +3,8 @@ Rails.application.routes.draw do
   root to: 'job_search#index'
 
   resources :job_search, only: %i[create]
+
+  get '/login' => 'sessions#new'
+  post '/login' => 'sessions#create'
+  delete '/logout' => 'sessions#destroy'
 end

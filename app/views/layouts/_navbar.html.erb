@@ -6,10 +6,16 @@
       </div>
     </div>
 
-    <div class="navbar-end">
-      <div class="navbar-item">
-        <span class="title is-4 has-text-white">Logged in Username</span>
+    <% if @current_user%>
+      <div class="navbar-end">
+        <div class="navbar-item">
+          <span class="title is-4 has-text-white"><%= @current_user.username %></span>
+        </div>
+
+        <div class="navbar-item">
+          <%= link_to 'Logout', logout_path, class: 'level-item button is-small is-danger', method: :delete %>
+        </div>
       </div>
-    </div>
+    <% end %>
   </div>
 </nav>
