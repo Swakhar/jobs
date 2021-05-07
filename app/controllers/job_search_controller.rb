@@ -16,11 +16,16 @@ class JobSearchController < ApplicationController
   private
 
   def fetch_job_lists(place)
-    url = "https://jobs.github.com/positions.json?location=#{place}"
-    response = Faraday.get(url) do |req|
-      req.headers['Content-Type'] = 'application/json'
+    if Redis.current.get(place).present?
+      @jobs = JSON.parse(Redis.current.get(place)).first(10)
+    else
+      url = "https://jobs.github.com/positions.json?location=#{place}"
+      response = Faraday.get(url) do |req|
+        req.headers['Content-Type'] = 'application/json'
+      end
+      @jobs = JSON.parse(response.body).first(10)
+      Redis.current.set(place, response.body, ex: 300)
     end
-    @jobs = JSON.parse(response.body).first(10)
   rescue
     @jobs = []
   end
